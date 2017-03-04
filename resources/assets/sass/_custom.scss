@@ -48,3 +48,9 @@ html, body {
 .m-b-md {
   margin-bottom: 30px;
 }
+
+.main-sidebar, .main-content {
+  padding-top: 55px;
+  min-height: 100%;
+  z-index: 810;
+}
