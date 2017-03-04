@@ -4,19 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Sport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SportController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -34,35 +25,44 @@ class SportController extends Controller
      */
     public function create()
     {
-        //
+        return view('sports.edit');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function store(Request $request)
     {
-        //
+        $sport = new Sport();
+        $sport->fill($request->all());
+        $sport->save();
+        $sport->users()->save(Auth::user());
+
+        return view('sports.show')->with([
+            'sport' => $sport
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Sport  $sport
-     * @return \Illuminate\Http\Response
+     * @param  \App\Sport $sport
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Sport $sport)
     {
-        //
+        return view('sports.show')->with([
+            'sport' => $sport
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Sport  $sport
+     * @param  \App\Sport $sport
      * @return \Illuminate\Http\Response
      */
     public function edit(Sport $sport)
@@ -73,8 +73,8 @@ class SportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sport  $sport
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Sport $sport
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Sport $sport)
@@ -85,7 +85,7 @@ class SportController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Sport  $sport
+     * @param  \App\Sport $sport
      * @return \Illuminate\Http\Response
      */
     public function destroy(Sport $sport)

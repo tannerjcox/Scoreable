@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::resource('sports', 'SportController');
+Route::resource('games', 'GameController');
