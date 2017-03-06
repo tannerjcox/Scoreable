@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Sport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class GameController extends Controller
 {
@@ -20,11 +22,14 @@ class GameController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $sport = Sport::find(Input::get('sport_id'));
+        return view('games.create')->with([
+            'sport' => $sport
+        ]);
     }
 
     /**
@@ -35,7 +40,9 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $game = new Game();
+        $game->fill($request->all());
+        $game->save();
     }
 
     /**

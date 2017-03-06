@@ -63,11 +63,13 @@ class SportController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Sport $sport
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Sport $sport)
     {
-        //
+        return view('sports.edit')->with([
+            'sport' => $sport
+        ]);
     }
 
     /**

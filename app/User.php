@@ -28,10 +28,28 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be considered dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at', 'updated_at'
+    ];
+    protected $dateFormat = 'f jS Y h:i:s A';
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function sports()
     {
         return $this->belongsToMany('App\Sport');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function games()
+    {
+        return $this->hasMany('App\Game');
     }
 }
