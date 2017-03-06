@@ -15,15 +15,18 @@
 
     <!-- Scripts -->
     <script>
-      window.Laravel = {!! json_encode([
+        window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
 </head>
 <body>
-<div id="app">
-    @include('partials.header')
-    @yield('content')
+@include('partials.header')
+<div class="col-md-10 col-md-offset-1">
+    @include('partials.sidebar')
+    <div class="main-content col-md-9">
+        @yield('content')
+    </div>
 </div>
 
 <!-- Scripts -->
