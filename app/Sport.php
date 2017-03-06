@@ -14,7 +14,7 @@ class Sport extends Model
     protected $dates = [
         'created_at', 'updated_at'
     ];
-    protected $dateFormat = 'f jS Y h:i:s A';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.

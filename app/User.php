@@ -35,7 +35,7 @@ class User extends Authenticatable
     protected $dates = [
         'created_at', 'updated_at'
     ];
-    protected $dateFormat = 'f jS Y h:i:s A';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
