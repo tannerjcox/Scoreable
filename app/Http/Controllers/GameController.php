@@ -26,10 +26,8 @@ class GameController extends Controller
      */
     public function create()
     {
-        $sport = Sport::find(Input::get('sport_id'));
-        return view('games.create')->with([
-            'sport' => $sport
-        ]);
+        $sport = Sport::findOrFail(Input::get('sport_id'));
+        return view('games.create', ['sport' => $sport]);
     }
 
     /**
@@ -43,6 +41,7 @@ class GameController extends Controller
         $game = new Game();
         $game->fill($request->all());
         $game->save();
+        return redirect()->route('sports.show', $request->sport_id);
     }
 
     /**
