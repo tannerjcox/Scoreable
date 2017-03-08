@@ -22,7 +22,7 @@ class Sport extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'name'
     ];
 
     /**
@@ -31,5 +31,10 @@ class Sport extends Model
     public function users()
     {
         return $this->belongsToMany('App\User');
+    }
+
+    public function creator()
+    {
+        return $this->users()->orderBy('created_at', 'desc')->first();
     }
 }

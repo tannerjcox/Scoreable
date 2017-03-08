@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('sports', 'SportController');
 Route::resource('games', 'GameController');
+Route::resource('teams', 'TeamController');

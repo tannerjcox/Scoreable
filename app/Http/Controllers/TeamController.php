@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Sport;
+use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SportController extends Controller
+class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class SportController extends Controller
      */
     public function index()
     {
-        return view('sports.index');
+        return view('teams.index');
     }
 
     /**
@@ -26,7 +26,7 @@ class SportController extends Controller
      */
     public function create()
     {
-        return view('sports.edit')->with([
+        return view('teams.edit')->with([
             'users' => User::all()
         ]);
     }
@@ -34,48 +34,44 @@ class SportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function store(Request $request)
     {
-        $sport = new Sport();
-        $sport->fill($request->all());
-        $sport->save();
-        if ($request->user_id) {
-            $sport->users()->save(User::find($request->user_id));
-        } else {
-            $sport->users()->save(Auth::user());
-        }
+        $team = new Team();
+        $team->fill($request->all());
+        $team->save();
+        $team->users()->save(Auth::user());
 
-        return view('sports.show')->with([
-            'sport' => $sport
+        return redirect()->route('teams.show', [
+            'team' => $team
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Sport $sport
+     * @param  \App\Team  $team
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Sport $sport)
+    public function show(Team $team)
     {
-        return view('sports.show')->with([
-            'sport' => $sport
+        return view('teams.show')->with([
+            'team' => $team
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Sport $sport
+     * @param  \App\Team  $team
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Sport $sport)
+    public function edit(Team $team)
     {
-        return view('sports.edit')->with([
-            'sport' => $sport,
+        return view('teams.edit')->with([
+            'team' => $team,
             'users' => User::all()
         ]);
     }
@@ -83,22 +79,30 @@ class SportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Sport $sport
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sport $sport)
+    public function update(Request $request, Team $team)
     {
-        //
+        $team->fill($request->all());
+        $team->save();
+        if ($request->user_id) {
+            $team->users()->save(User::find($request->user_id));
+        }
+
+        return redirect()->route('teams.edit', [
+            'team' => $team
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Sport $sport
+     * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sport $sport)
+    public function destroy(Team $team)
     {
         //
     }

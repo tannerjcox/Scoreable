@@ -24,4 +24,8 @@ class Game extends Model
         'score', 'user_id', 'sport_id'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
