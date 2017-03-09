@@ -19,12 +19,6 @@ class CreateRolesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        $roles = ['Admin', 'Premium', 'Standard'];
-        foreach($roles as $name) {
-            $role = new \App\Role();
-            $role->name = $name;
-            $role->save();
-        }
     }
 
     /**
