@@ -13,8 +13,8 @@
                 {!! BootForm::text('Name', 'name') !!}
             </div>
             <div class="col-md-6">
-                @if((Auth::user()->isAdmin() || ($team && $team->creator()->id == Auth::user()->id)) && $users)
-                    {!! BootForm::select(isset($team) ? 'Add User to Team' : 'Team Captain', 'user_id')->options(array_merge(['0' => 'Select A User'], $users->pluck('name', 'id')->all())) !!}
+                @if($canAddUsers)
+                    {!! BootForm::select(isset($team) ? 'Add User to Team' : 'Team Captain', 'user_id')->options(array_merge(['0' => 'Select A User'], $users)) !!}
                 @endif
             </div>
         </div>

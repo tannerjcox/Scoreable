@@ -61,8 +61,12 @@ class SportController extends Controller
      */
     public function show(Sport $sport)
     {
+        $games = Auth::user()->games()->whereSportId($sport->id)->orderBy('score', 'desc')->get();
+        $users = $sport->users;
         return view('sports.show')->with([
-            'sport' => $sport
+            'sport' => $sport,
+            'games' => $games,
+            'users' => $users
         ]);
     }
 

@@ -27,7 +27,8 @@ class TeamController extends Controller
     public function create()
     {
         return view('teams.edit')->with([
-            'users' => User::all()
+            'users' => User::pluck('name', 'id')->toArray(),
+            'canAddUsers' => Auth::user()->isAdmin()
         ]);
     }
 
@@ -70,9 +71,11 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
+        $addableUsers = User::whereNotIn('id', $team->users()->pluck('id'))->pluck('name', 'id')->toArray();
         return view('teams.edit')->with([
             'team' => $team,
-            'users' => User::all()
+            'users' => $addableUsers,
+            'canAddUsers' => (Auth::user()->isAdmin() || ($team && $team->creator()->id == Auth::user()->id)) && $addableUsers
         ]);
     }
 

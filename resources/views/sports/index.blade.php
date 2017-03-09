@@ -8,9 +8,9 @@
                 {!! Form::button('Create Game', ['class' => 'btn btn-primary btn-sm', 'data-create-game']) !!}
                 <br>
             @endforeach
-            <br>
-            <a href="{{ route('sports.create') }}" class="btn btn-success btn-sm">Create Sport</a>
-
+        </div>
+        <div class="panel-footer">
+            {{ link_to_route('sports.create', 'Create Sport', [], ['class' => 'btn btn-sm btn-success']) }}
         </div>
     </div>
 @endsection
