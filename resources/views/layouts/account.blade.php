@@ -23,9 +23,17 @@
 <body>
 @include('partials.header')
 <div class="col-md-10 col-md-offset-1">
-    @include('partials.sidebar')
-    <div class="main-content col-md-9">
-        @yield('content')
+    <div class="content-wrapper">
+        @if(Session::has('message'))
+            <div class="text-center alert-dismissible alert alert-{{ Session::get('success') ? 'success' : 'danger'}}">
+                {{  Session::get('message') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+        @endif
+        @include('partials.sidebar')
+        <div class="main-content col-md-9">
+            @yield('content')
+        </div>
     </div>
 </div>
 

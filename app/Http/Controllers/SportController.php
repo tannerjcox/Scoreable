@@ -89,11 +89,14 @@ class SportController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Sport $sport
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function update(Request $request, Sport $sport)
     {
-        //
+        $sport->name = $request->name;
+        $sport->save();
+
+        return redirect()->route('sports.show', $sport->id);
     }
 
     /**

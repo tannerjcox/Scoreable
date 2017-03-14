@@ -37,4 +37,12 @@ class Sport extends Model
     {
         return $this->users()->orderBy('created_at', 'desc')->first();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function games()
+    {
+        return $this->hasMany('App\Game');
+    }
 }

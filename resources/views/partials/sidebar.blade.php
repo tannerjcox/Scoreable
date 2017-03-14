@@ -33,4 +33,13 @@
             @endforeach
         </div>
     </div>
+    @if(Auth::user()->isAdmin())
+        <div class="col-md-12 col-sm-6 col-xs-6">
+            <div>
+                <a href="{{ route('users.index') }}">
+                    <strong><i class="fa fa-users"></i> Users </strong>
+                </a>
+            </div>
+        </div>
+    @endif
 </aside>

@@ -14,7 +14,7 @@
                 {!! BootForm::text('Name', 'name') !!}
             </div>
             <div class="col-md-6">
-                @if(Auth::user()->isAdmin() && $users)
+                @if(Auth::user()->isAdmin() && $users  && !$sport)
                     {!! BootForm::select('User', 'user_id')->options(array_merge(['0' => 'Select A User'], $users->pluck('name', 'id')->all()))->defaultValue(isset($sport) ? $sport->creator() : 0) !!}
                 @endif
             </div>
