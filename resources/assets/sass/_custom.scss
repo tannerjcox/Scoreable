@@ -49,8 +49,13 @@ html, body {
   margin-bottom: 30px;
 }
 
-.main-sidebar, .main-content {
-  padding-top: 55px;
+.content-wrapper {
+  padding: 55px 15px;
   min-height: 100%;
   z-index: 810;
+}
+
+.main-sidebar > div, .main-sidebar > div > div {
+  margin-bottom: 5px !important;
+  top: 5px !important;
 }

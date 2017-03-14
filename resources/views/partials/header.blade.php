@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-default navbar-fixed-top col-xs-12">
     <div class="navbar-header">
 
@@ -34,6 +33,9 @@
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
+                        <li>
+                            {{ Auth::user()->role->name }} User
+                        </li>
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout

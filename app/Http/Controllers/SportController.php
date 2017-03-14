@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sport;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,11 +22,13 @@ class SportController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return view('sports.edit');
+        return view('sports.edit')->with([
+            'users' => User::all()
+        ]);
     }
 
     /**
@@ -39,7 +42,11 @@ class SportController extends Controller
         $sport = new Sport();
         $sport->fill($request->all());
         $sport->save();
-        $sport->users()->save(Auth::user());
+        if ($request->user_id) {
+            $sport->users()->save(User::find($request->user_id));
+        } else {
+            $sport->users()->save(Auth::user());
+        }
 
         return view('sports.show')->with([
             'sport' => $sport
@@ -54,8 +61,12 @@ class SportController extends Controller
      */
     public function show(Sport $sport)
     {
+        $games = Auth::user()->games()->whereSportId($sport->id)->orderBy('score', 'desc')->get();
+        $users = $sport->users;
         return view('sports.show')->with([
-            'sport' => $sport
+            'sport' => $sport,
+            'games' => $games,
+            'users' => $users
         ]);
     }
 
@@ -68,7 +79,8 @@ class SportController extends Controller
     public function edit(Sport $sport)
     {
         return view('sports.edit')->with([
-            'sport' => $sport
+            'sport' => $sport,
+            'users' => User::all()
         ]);
     }
 
@@ -77,11 +89,14 @@ class SportController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Sport $sport
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function update(Request $request, Sport $sport)
     {
-        //
+        $sport->name = $request->name;
+        $sport->save();
+
+        return redirect()->route('sports.show', $sport->id);
     }
 
     /**

@@ -15,7 +15,9 @@ class CreateSportUserTable extends Migration
     {
         Schema::create('sport_user', function (Blueprint $table) {
             $table->integer('user_id');
-            $table->string('sport_id');
+            $table->integer('sport_id');
+            $table->unique(['user_id', 'sport_id']);
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
