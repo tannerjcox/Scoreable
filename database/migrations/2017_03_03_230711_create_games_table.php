@@ -30,8 +30,6 @@ class CreateGamesTable extends Migration
      */
     public function down()
     {
-        Schema::table('games', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('games');
     }
 }
