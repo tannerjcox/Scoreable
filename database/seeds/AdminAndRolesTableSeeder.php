@@ -18,7 +18,7 @@ class AdminAndRolesTableSeeder extends Seeder
         ];
         foreach ($names as $name) {
             \App\Role::create(['name' => $name]);
-
+        }
 
         \App\User::create([
             'name' => 'Admin',
